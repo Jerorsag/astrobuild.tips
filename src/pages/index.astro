@@ -1,11 +1,41 @@
 ---
 import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Obtener todos los posts Markdown
+const allPosts = await Astro.glob("../content/*.md");
+
+// Para debugging
+console.log("Posts encontrados:", allPosts.length);
+allPosts.forEach((post, index) => {
+  console.log(`Post ${index}:`, {
+    title: post?.frontmatter?.title,
+    date: post?.frontmatter?.pubDate,
+    tags: post?.frontmatter?.tags,
+    isArray: Array.isArray(post?.frontmatter?.tags)
+  });
+});
 ---
 
 <Layout>
-	<Welcome />
+  <Welcome />
+  <div class="container mx-auto px-4 py-8">
+    {allPosts.map((post) => {
+      // Validación extra para asegurarnos de que tenemos los datos que necesitamos
+      const title = post?.frontmatter?.title || 'Sin título';
+      const time = post?.frontmatter?.pubDate || new Date().toISOString();
+      const tags = post?.frontmatter?.tags || [];
+      
+      return (
+        <div class="mb-8">
+          <Card 
+            title={title}
+            time={time}
+            tags={tags}
+          />
+        </div>
+      );
+    })}
+  </div>
 </Layout>
