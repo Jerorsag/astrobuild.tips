@@ -7,14 +7,16 @@ export interface Props {
 }
 
 const { title, time, tags, slug } = Astro.props;
+const event = new Date(time);
+const date = event.toDateString().slice(0, -4);
 
 // Asegurarnos de que tags sea siempre un array
 const tagsArray = Array.isArray(tags) ? tags : tags ? [tags] : [];
 ---
 
 <article class="rounded-[10px] border border-gray-200 bg-white px-4 pt-12 pb-4">
-  <time datetime={time} class="block text-xs text-gray-500">
-    {time}
+  <time datetime={date} class="block text-xs text-gray-500">
+    {date}
   </time>
 
   <a href={`/posts/${slug}`}>
