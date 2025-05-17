@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Header from "../../components/Header"
+import Footer from "../../components/Footer.vue";
+
+// Obtener rutas estáticas
+export async function getStaticPaths() {
+  const posts = await getCollection("tips");
+  return posts.map((post: CollectionEntry<"tips">) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
+}
+
+// Tipar correctamente Astro.props
+const post = Astro.props as CollectionEntry<"tips">;
+const { Content } = await post.render();
+---
+<Base title="AstroBuild.tips">
+  <Header title="AstroBuild.tips" />
+<Content />
+<section>
+  <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
+    <div class="space-y-4 md:space-y-8">
+      <div class="max-w-xl">
+        <h2 class="text-2xl font-semibold text-gray-900 sm:text-3xl">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </h2>
+
+        <p class="mt-4 text-gray-700">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur doloremque saepe
+          architecto maiores repudiandae amet perferendis repellendus, reprehenderit voluptas sequi.
+        </p>
+      </div>
+
+      <img
+        src="https://images.unsplash.com/photo-1731690415686-e68f78e2b5bd?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        class="rounded"
+        alt=""
+      />
+    </div>
+  </div>
+</section>
+<Footer/>
+</Base>

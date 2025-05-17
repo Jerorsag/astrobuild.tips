@@ -1,9 +1,10 @@
 ---
-title: "Hello JavaScript"
+title: "Hello World"
 pubDate: 2024-05-07
 description: "Hello this is my first recommendation"
-image: 
+image: "https://api.lorem.space/image/fashion?w=640&h=480&r=3027"
 tags: ["astro", "javascript"]
+layout: "../../layouts/Base.astro"
 ---
 
 Lorem ipsum dolor sit amet consectetur adipiscing elit dapibus, montes dictum phasellus aptent pulvinar faucibus condimentum blandit id, augue ornare urna quisque auctor euismod tincidunt. Dui quisque curae ultricies sodales penatibus fringilla est feugiat suscipit eget sapien, himenaeos primis torquent semper magnis curabitur vivamus sagittis eu vitae bibendum lacus, maecenas ullamcorper senectus quis malesuada aenean nascetur erat porttitor turpis. Per eros quisque interdum habitant faucibus conubia luctus eu accumsan, taciti nibh enim fusce laoreet egestas donec maecenas dapibus, lacinia ridiculus integer ac in nam dis class.

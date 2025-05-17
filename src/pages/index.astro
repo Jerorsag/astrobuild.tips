@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 
 // Obtener todos los posts Markdown
-const allPosts = await Astro.glob("../content/*.md");
+const allPosts = await Astro.glob("../content/tips/*.md");
 
 // Para debugging
 console.log("Posts encontrados:", allPosts.length);
@@ -13,7 +13,7 @@ allPosts.forEach((post, index) => {
     title: post?.frontmatter?.title,
     date: post?.frontmatter?.pubDate,
     tags: post?.frontmatter?.tags,
-    isArray: Array.isArray(post?.frontmatter?.tags)
+    slug: post?.url,
   });
 });
 ---
@@ -26,6 +26,7 @@ allPosts.forEach((post, index) => {
       const title = post?.frontmatter?.title || 'Sin título';
       const time = post?.frontmatter?.pubDate || new Date().toISOString();
       const tags = post?.frontmatter?.tags || [];
+      const slug = post.url || '#';
       
       return (
         <div class="mb-8">
@@ -33,6 +34,7 @@ allPosts.forEach((post, index) => {
             title={title}
             time={time}
             tags={tags}
+            slug={slug}
           />
         </div>
       );

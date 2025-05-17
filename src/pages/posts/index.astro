@@ -1,0 +1,38 @@
+---
+import Welcome from '../../components/Welcome.astro';
+import Layout from '../../layouts/Layout.astro';
+import Card from '../../components/Card.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+// 🔸 Define el tipo de entrada
+type Post = CollectionEntry<"tips">;
+
+// 🔸 Anota los tipos en la función de ordenamiento
+const posts = (await getCollection("tips")).sort(
+    (a: Post, b: Post) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
+);
+console.log(posts);
+---
+<Layout>
+  <Welcome />
+  <div class="container mx-auto px-4 py-8">
+    {posts.map((post: Post) => {
+      const title = post.data.title || 'Sin título';
+      const time = post.data.pubDate || new Date().toISOString();
+      const tags = post.data.tags || [];
+      const slug = post.slug;
+      
+      return (
+        <div class="mb-8">
+          <Card 
+            title={title}
+            time={time}
+            tags={tags}
+            slug={slug}
+          />
+        </div>
+      );
+    })}
+  </div>
+</Layout>
